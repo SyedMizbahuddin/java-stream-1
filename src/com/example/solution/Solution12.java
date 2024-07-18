@@ -1,6 +1,9 @@
 package com.example.solution;
 
 import java.util.List;
+import java.util.LongSummaryStatistics;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.example.dao.InMemoryWorldDao;
 import com.example.dao.WorldDao;
@@ -15,7 +18,10 @@ public class Solution12 {
 		List<Country> countries = worldService.findAllCountries();
 
 		// Find the minimum, the maximum and the average population of world countries.
+		Map<String, LongSummaryStatistics> result = countries.stream().collect(Collectors.groupingBy(
+				Country::getContinent, Collectors.summarizingLong(Country::getPopulation)));
 
+		System.out.println(result);
 	}
 
 }
